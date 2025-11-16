@@ -7,35 +7,30 @@
 #define TN "temp_users.txt"
 #define NL 50 // Name Length Max
 
-// User record structure (i: id, n: name, a: age)
+
 struct U { 
     int i;
     char n[NL];
     int a;
 };
 
-// Clears the input buffer
+
 void clr_buf() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-/**
- * @brief Checks if a given user ID already exists in the data file.
- * @param id The ID to check.
- * @return 1 if the ID is unique (or file doesn't exist), 0 otherwise.
- */
 int is_id_unique(int id) {
     FILE *f = fopen(FN, "r");
-    if (!f) return 1; // File does not exist, so ID is unique.
+    if (!f) return 1; 
     
     struct U temp_u;
     int is_unique = 1;
 
-    // Scan the file for a matching ID
+
     while (fscanf(f, "%d,%49[^,],%d\n", &temp_u.i, temp_u.n, &temp_u.a) == 3) {
         if (temp_u.i == id) {
-            is_unique = 0; // ID found
+            is_unique = 0; 
             break;
         }
     }
@@ -67,10 +62,10 @@ int main() {
                 if (!f) { perror("File Error"); break; }
                 
                 printf("ID Name Age: ");
-                // Basic input validation: check scan count, positive ID, non-negative age
+ 
                 if (scanf("%d %s %d", &u.i, u.n, &u.a) == 3 && u.i > 0 && u.a >= 0) {
                     
-                    // NEW: Check for uniqueness before writing
+    
                     if (is_id_unique(u.i)) {
                         fprintf(f, "%d,%s,%d\n", u.i, u.n, u.a);
                         printf("ID %d added.\n", u.i);
@@ -124,13 +119,12 @@ int main() {
                             fprintf(t, "%d,%s,%d\n", u.i, new_n, new_a);
                             printf("ID %d UPDATED.\n", id);
                         } else {
-                            // If update fails, copy the original record to prevent data loss
                             fprintf(t, "%d,%s,%d\n", u.i, u.n, u.a);
                             printf("WARNING: Update failed, original kept.\n");
                         }
                         clr_buf(); 
                     } else {
-                        fprintf(t, "%d,%s,%d\n", u.i, u.n, u.a); // Copy record
+                        fprintf(t, "%d,%s,%d\n", u.i, u.n, u.a); 
                     }
                 }
                 
@@ -162,9 +156,9 @@ int main() {
                 while (fscanf(f, "%d,%49[^,],%d\n", &u.i, u.n, &u.a) == 3) {
                     if (u.i == id) {
                         fnd = 1;
-                        printf("ID %d DELETED.\n", id); // Skip writing the record
+                        printf("ID %d DELETED.\n", id); 
                     } else {
-                        fprintf(t, "%d,%s,%d\n", u.i, u.n, u.a); // Copy non-target record
+                        fprintf(t, "%d,%s,%d\n", u.i, u.n, u.a); 
                     }
                 }
                 

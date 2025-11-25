@@ -11,18 +11,18 @@ struct Student {
     float average_marks;
     char grade;
 };
-
+//these are function declarations
 void calculate_performance(struct Student *stu);
 void print_pattern(char grade);
 void print_roll_numbers_recursive(int current_roll, int max_roll);
-void calculate_performance(struct Student *stu) { 
 
+void calculate_performance(struct Student *stu) { 
+//total sum 
     float subject_sum = 0; 
     
     for (int i = 0; i < SUBJECTS; i++) {
         subject_sum += stu->marks[i]; 
     }
-    
     stu->total_marks = subject_sum;
     stu->average_marks = subject_sum / (float)SUBJECTS; 
     
@@ -38,7 +38,7 @@ void calculate_performance(struct Student *stu) {
         stu->grade = 'F';
     }
 }
-
+//for printing stars
 void print_pattern(char grade) {
     int stars;
     switch (grade) {
@@ -60,7 +60,7 @@ void print_pattern(char grade) {
     }
     printf("\n");
 }
-
+//function to print roll numbers recursive
 void print_roll_numbers_recursive(int current_roll, int max_roll) {
     if (current_roll > max_roll) {
         return;
